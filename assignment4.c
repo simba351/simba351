@@ -79,12 +79,12 @@ BTnode_t* find(BTnode_t* root, bool (*pred)(int))
 }
 BTnode_t* create_mirror_tree(BTnode_t* root)
 {
-    if(root==NULL) return NULL;
-    create_mirror_tree(root->left);
-    create_mirror_tree(root->right);
-    BTnode_t* temp=root->left;
-    root->left=root->right;
-    root->right=temp;
-    return root;
+    BTnode_t* now=create_node(root->value);
+    if(root->left!=NULL)
+        set_right_child(now,create_mirror_tree(root->left));
+    if(root->right!=NULL)
+        set_left_child(now,create_mirror_tree(root->right));
+    return now;
 }
+
 
